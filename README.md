@@ -33,45 +33,6 @@ This reliability-aware layer allows the application to distinguish between:
 
 Instead of blindly displaying a classification result for every input, the system can provide a caution state or withhold model interpretation when the speech sample is not sufficiently suitable.
 
-## System Workflow
-
-```mermaid
-flowchart TD
-
-    A["Browser Microphone"] --> B["Audio Recording"]
-    B --> C["WebM → WAV Conversion"]
-    C --> D["Whisper Transcription"]
-    D --> E["NLP Feature Extraction"]
-
-    E --> E1["Filler Count"]
-    E --> E2["Filler Rate"]
-    E --> E3["Sentence Count"]
-    E --> E4["Short Sentence Ratio"]
-    E --> E5["Type-Token Ratio"]
-
-    E --> F["Speech-Sample Reliability Assessment"]
-
-    F --> G{"Reliability Status"}
-
-    G -->|Reliable| H["Machine-Learning Classification"]
-    G -->|Caution| I["Classification with Caution"]
-    G -->|Low Reliability| J["Withhold Model Interpretation"]
-
-    H --> K["HC / PD Class Probabilities"]
-    I --> K
-    J --> L["Reliability Warning"]
-
-    K --> M["Interactive Results Dashboard"]
-    L --> M
-
-    M --> M1["Whisper Transcript"]
-    M --> M2["Linguistic Profile"]
-    M --> M3["Reliability Status"]
-    M --> M4["Classification Result"]
-    M --> M5["Pipeline Status"]
-
-```
-
 ## How It Works
 
 ```text
