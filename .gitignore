@@ -1,0 +1,35 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment / secrets
+.env
+.env.*
+
+# Generated audio and uploads
+uploads/
+audio/
+dataset/
+transcripts/
+
+# Generated outputs
+results/
+features/
+
+# Whisper / model files
+models/*
+!models/parkinlp_model.joblib
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Temporary files
+*.tmp
+*.log

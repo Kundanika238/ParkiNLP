@@ -1,0 +1,640 @@
+{% extends "base.html" %}
+
+{% block title %}
+ParkiNLP — Speech & Language Analysis
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+    <div class="container hero-grid">
+
+        <div class="hero-content">
+
+            <div class="hero-eyebrow">
+
+                <span class="hero-eyebrow-dot"></span>
+
+                Speech & Language Analysis Platform
+
+            </div>
+
+
+            <h1>
+
+                Understanding Parkinson's
+                through
+                <span>speech and language.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                ParkiNLP is a web-based speech analysis platform that
+                converts spoken audio into text using Whisper, extracts
+                linguistic features, evaluates speech quality, and
+                provides an interpretable machine-learning output.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for('analyze') }}"
+                    class="btn btn-primary"
+                >
+
+                    Analyze Speech
+
+                    <span aria-hidden="true">
+                        →
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('research') }}"
+                    class="btn btn-secondary"
+                >
+
+                    How It Works
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             HERO ANALYSIS PREVIEW
+             ===================================================== -->
+
+        <div class="hero-visual">
+
+            <div class="hero-orb"></div>
+
+
+            <div class="analysis-card">
+
+
+                <div class="analysis-card-header">
+
+                    <div class="analysis-card-title">
+
+                        Linguistic Analysis
+
+                    </div>
+
+
+                    <div class="status-pill">
+
+                        <span class="status-dot"></span>
+
+                        Working Prototype
+
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-result">
+
+                    <div class="analysis-label">
+                        Sample model output
+                    </div>
+
+                    <div class="analysis-score">
+                        —
+                    </div>
+
+
+                    <div class="progress-track">
+
+                        <div class="progress-bar"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="feature-list">
+
+
+                    <div class="feature-row">
+
+                        <span class="feature-name">
+                            Filler Count
+                        </span>
+
+                        <span class="feature-value">
+                            Example
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span class="feature-name">
+                            Short Sentence Ratio
+                        </span>
+
+                        <span class="feature-value">
+                            Example
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span class="feature-name">
+                            Type-Token Ratio
+                        </span>
+
+                        <span class="feature-value">
+                            Example
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span class="feature-name">
+                            Sentence Count
+                        </span>
+
+                        <span class="feature-value">
+                            Example
+                        </span>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span class="feature-name">
+                            Filler Rate
+                        </span>
+
+                        <span class="feature-value">
+                            Example
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RESEARCH POSITIONING
+     ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                The Approach
+            </div>
+
+
+            <h2 class="section-title">
+
+                From speech to interpretable
+                linguistic evidence.
+
+            </h2>
+
+
+            <p class="section-description">
+
+                ParkiNLP transforms recorded speech into
+                measurable linguistic characteristics and
+                evaluates them using a stability-aware machine
+                learning workflow.
+
+            </p>
+
+        </div>
+
+
+        <div class="grid-3">
+
+
+            <article class="card">
+
+                <div class="card-icon">
+                    01
+                </div>
+
+
+                <h3 class="card-title">
+                    Speech Processing
+                </h3>
+
+
+                <p class="card-text">
+
+                    Recorded speech is transcribed using
+                    Whisper, creating the textual representation
+                    required for downstream linguistic analysis.
+
+                </p>
+
+            </article>
+
+
+            <article class="card">
+
+                <div class="card-icon">
+                    02
+                </div>
+
+
+                <h3 class="card-title">
+                    NLP Analysis
+                </h3>
+
+
+                <p class="card-text">
+
+                    Linguistic characteristics such as filler
+                    usage, sentence structure, and lexical
+                    diversity are extracted from the transcript.
+
+                </p>
+
+            </article>
+
+
+            <article class="card">
+
+                <div class="card-icon">
+                    03
+                </div>
+
+
+                <h3 class="card-title">
+                    Interpretable ML
+                </h3>
+
+
+                <p class="card-text">
+
+                    Stable linguistic features are evaluated
+                    using machine learning and cross-validation
+                    rather than relying only on a single train-test
+                    split.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MODEL PERFORMANCE
+     ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                Project Snapshot
+            </div>
+
+
+            <h2 class="section-title">
+
+                A transparent look at the
+                classification model
+
+            </h2>
+
+
+            <p class="section-description">
+
+                The current application was evaluated
+                using 36 participants and a compact set of
+                stability-selected linguistic features.
+
+            </p>
+
+        </div>
+
+
+        <div class="grid-3">
+
+
+            <div class="metric-card">
+
+                <div class="metric-label">
+                    Accuracy
+                </div>
+
+
+                <div class="metric-value">
+                    72.22%
+                </div>
+
+
+                <div class="metric-description">
+                    Final evaluation
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-label">
+                    F1 Score
+                </div>
+
+
+                <div class="metric-value">
+                    69.90%
+                </div>
+
+
+                <div class="metric-description">
+                    Weighted classification performance
+                </div>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-label">
+                    ROC-AUC
+                </div>
+
+
+                <div class="metric-value">
+                    73.65%
+                </div>
+
+
+                <div class="metric-description">
+                    Discrimination measure
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURE STABILITY
+     ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                Feature Stability
+            </div>
+
+
+            <h2 class="section-title">
+
+                Five linguistic features
+                stood out consistently.
+
+            </h2>
+
+
+            <p class="section-description">
+
+                Feature selection was evaluated repeatedly
+                across 50 model evaluations to identify
+                characteristics that remained consistently
+                informative.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="stability-list">
+
+
+                <div class="stability-item">
+
+                    <div class="stability-name">
+                        Filler Count
+                    </div>
+
+                    <div class="stability-track">
+
+                        <div
+                            class="stability-fill"
+                            style="width: 100%;"
+                        ></div>
+
+                    </div>
+
+                    <div class="stability-value">
+                        100%
+                    </div>
+
+                </div>
+
+
+                <div class="stability-item">
+
+                    <div class="stability-name">
+                        Short Sentence Ratio
+                    </div>
+
+                    <div class="stability-track">
+
+                        <div
+                            class="stability-fill"
+                            style="width: 94%;"
+                        ></div>
+
+                    </div>
+
+                    <div class="stability-value">
+                        94%
+                    </div>
+
+                </div>
+
+
+                <div class="stability-item">
+
+                    <div class="stability-name">
+                        Type-Token Ratio
+                    </div>
+
+                    <div class="stability-track">
+
+                        <div
+                            class="stability-fill"
+                            style="width: 82%;"
+                        ></div>
+
+                    </div>
+
+                    <div class="stability-value">
+                        82%
+                    </div>
+
+                </div>
+
+
+                <div class="stability-item">
+
+                    <div class="stability-name">
+                        Sentence Count
+                    </div>
+
+                    <div class="stability-track">
+
+                        <div
+                            class="stability-fill"
+                            style="width: 64%;"
+                        ></div>
+
+                    </div>
+
+                    <div class="stability-value">
+                        64%
+                    </div>
+
+                </div>
+
+
+                <div class="stability-item">
+
+                    <div class="stability-name">
+                        Filler Rate
+                    </div>
+
+                    <div class="stability-track">
+
+                        <div
+                            class="stability-fill"
+                            style="width: 58%;"
+                        ></div>
+
+                    </div>
+
+                    <div class="stability-value">
+                        58%
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CALL TO ACTION
+     ========================================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="card text-center">
+
+            <div class="section-eyebrow">
+                Explore the Project
+            </div>
+
+
+            <h2 class="section-title">
+
+                Analyze speech through
+                a linguistic lens.
+
+            </h2>
+
+
+            <p class="section-description">
+
+                Record speech and explore how ParkiNLP
+                transforms it into an interpretable
+                linguistic profile.
+
+            </p>
+
+
+            <div class="hero-actions"
+                 style="justify-content: center;">
+
+                <a
+                    href="{{ url_for('analyze') }}"
+                    class="btn btn-primary"
+                >
+
+                    Start Speech Analysis
+
+                    <span aria-hidden="true">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

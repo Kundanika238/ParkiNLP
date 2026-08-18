@@ -1,0 +1,639 @@
+{% extends "base.html" %}
+
+{% block title %}
+ParkiNLP — Research
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-header">
+            <div class="section-eyebrow">
+                How ParkiNLP Works
+            </div>
+
+            <h1 class="section-title">
+                From spoken audio to
+                <span>interpretable results.</span>
+            </h1>
+
+            <p class="section-description">
+                ParkiNLP converts spoken audio into text, extracts linguistic
+                characteristics, evaluates speech quality, and produces an
+                interpretable machine-learning classification result.
+            </p>
+        </div>
+
+
+        <!-- RESEARCH QUESTION -->
+
+        <div class="card" style="margin-top: 35px;">
+
+            <div class="card-icon">
+                01
+            </div>
+
+            <h2 class="card-title">
+                Project Goal
+            </h2>
+
+            <p class="card-text">
+                ParkiNLP uses linguistic characteristics derived from
+                speech transcripts to build an interpretable machine-
+                learning classification workflow for Parkinson's-related
+                speech analysis.
+            </p>
+
+        </div>
+
+
+        <!-- MOTIVATION -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    Motivation
+                </div>
+
+                <h2 class="section-title">
+                    Why speech and language?
+                </h2>
+
+                <p class="section-description">
+                    Speech can contain information about how a person
+                    uses language, including lexical diversity,
+                    sentence structure and filler usage. ParkiNLP
+                    investigates these characteristics through a
+                    reproducible NLP pipeline.
+                </p>
+
+            </div>
+
+
+            <div class="grid-3">
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        01
+                    </div>
+
+                    <h3 class="card-title">
+                        Speech
+                    </h3>
+
+                    <p class="card-text">
+                        The system accepts a natural spoken sample
+                        recorded directly through the browser.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        02
+                    </div>
+
+                    <h3 class="card-title">
+                        Language
+                    </h3>
+
+                    <p class="card-text">
+                        Whisper converts the recorded speech into a
+                        textual representation for linguistic analysis.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        03
+                    </div>
+
+                    <h3 class="card-title">
+                        Machine Learning
+                    </h3>
+
+                    <p class="card-text">
+                        Selected linguistic features are supplied to
+                        the ParkiNLP classification model.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SYSTEM ARCHITECTURE -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    System Architecture
+                </div>
+
+                <h2 class="section-title">
+                    From speech to model output.
+                </h2>
+
+            </div>
+
+
+            <div class="grid-3">
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        01
+                    </div>
+
+                    <h3 class="card-title">
+                        Browser Recording
+                    </h3>
+
+                    <p class="card-text">
+                        The user records a continuous speech sample
+                        through the browser microphone.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        02
+                    </div>
+
+                    <h3 class="card-title">
+                        Whisper
+                    </h3>
+
+                    <p class="card-text">
+                        The recorded audio is converted and processed
+                        to generate the speech transcript.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        03
+                    </div>
+
+                    <h3 class="card-title">
+                        NLP Features
+                    </h3>
+
+                    <p class="card-text">
+                        Linguistic characteristics are extracted from
+                        the generated transcript.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        04
+                    </div>
+
+                    <h3 class="card-title">
+                        Reliability
+                    </h3>
+
+                    <p class="card-text">
+                        The system evaluates whether the speech sample
+                        is sufficiently similar to the training
+                        distribution before allowing model prediction.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        05
+                    </div>
+
+                    <h3 class="card-title">
+                        Classification
+                    </h3>
+
+                    <p class="card-text">
+                        The selected linguistic features are passed
+                        to the trained ParkiNLP model.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        06
+                    </div>
+
+                    <h3 class="card-title">
+                        Interpretation
+                    </h3>
+
+                    <p class="card-text">
+                        The application presents the prediction,
+                        probabilities, transcript, features and
+                        reliability information together.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    Linguistic Representation
+                </div>
+
+                <h2 class="section-title">
+                    Five selected NLP features.
+                </h2>
+
+                <p class="section-description">
+                    The current deployment model operates on a compact
+                    set of linguistic characteristics.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="feature-list">
+
+                    <div class="feature-row">
+                        <span>Filler Count</span>
+                        <strong>
+                            Number of detected filler expressions
+                        </strong>
+                    </div>
+
+                    <div class="feature-row">
+                        <span>Short Sentence Ratio</span>
+                        <strong>
+                            Proportion of short sentences
+                        </strong>
+                    </div>
+
+                    <div class="feature-row">
+                        <span>Type-Token Ratio</span>
+                        <strong>
+                            Lexical diversity measure
+                        </strong>
+                    </div>
+
+                    <div class="feature-row">
+                        <span>Sentence Count</span>
+                        <strong>
+                            Number of detected sentences
+                        </strong>
+                    </div>
+
+                    <div class="feature-row">
+                        <span>Filler Rate</span>
+                        <strong>
+                            Filler usage relative to speech text
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RELIABILITY -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                 <div class="section-eyebrow">
+                    Speech Quality & Reliability
+                </div>
+
+                <h2 class="section-title">
+                    Not every speech sample should
+                    be treated equally.
+                </h2>
+
+                <p class="section-description">
+                    ParkiNLP compares the extracted linguistic profile
+                    with the feature distribution observed during
+                    training. The system can therefore identify
+                    samples that may not provide a suitable model input.
+                </p>
+
+            </div>
+
+
+            <div class="grid-3">
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        NORMAL
+                    </div>
+
+                    <h3 class="card-title">
+                        Reliable
+                    </h3>
+
+                    <p class="card-text">
+                        The sample satisfies the required text and
+                        feature conditions.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        CAUTION
+                    </div>
+
+                    <h3 class="card-title">
+                        Caution
+                    </h3>
+
+                    <p class="card-text">
+                        Some characteristics differ from the typical
+                        training distribution.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        LOW
+                    </div>
+
+                    <h3 class="card-title">
+                        Low Reliability
+                    </h3>
+
+                    <p class="card-text">
+                        The system can prevent model prediction when
+                        the speech sample does not contain sufficient
+                        information.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- EVALUATION -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                 <div class="section-eyebrow">
+                    Model Performance
+                </div>
+
+                <h2 class="section-title">
+                    Current model performance.
+                </h2>
+
+                <p class="section-description">
+                    The current application performance is summarized below.
+                </p>
+
+            </div>
+
+
+            <div class="grid-3">
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        Accuracy
+                    </div>
+
+                    <div class="metric-value">
+                        72.22%
+                    </div>
+
+                    <div class="metric-description">
+                        Final evaluation
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        F1 Score
+                    </div>
+
+                    <div class="metric-value">
+                        69.90%
+                    </div>
+
+                    <div class="metric-description">
+                        Weighted classification performance
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-label">
+                        ROC-AUC
+                    </div>
+
+                    <div class="metric-value">
+                        73.65%
+                    </div>
+
+                    <div class="metric-description">
+                        Discrimination measure
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LIMITATIONS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    Limitations
+                </div>
+
+                <h2 class="section-title">
+                    What the current system does not claim.
+                </h2>
+
+            </div>
+
+
+            <div class="card">
+
+                <p class="card-text">
+
+                    ParkiNLP is an experimental speech-analysis application.
+                    Its output should not be interpreted as a medical
+                    diagnosis or as a replacement for professional
+                    clinical assessment.
+
+                    Model performance can also depend on recording
+                    quality, speech content, transcription quality,
+                    dataset characteristics and the representativeness
+                    of the training population.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FUTURE WORK -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                 <div class="section-eyebrow">
+                    Future Improvements
+                </div>
+
+                <h2 class="section-title">
+                    Where ParkiNLP can go next.
+                </h2>
+
+            </div>
+
+
+            <div class="grid-3">
+
+                <article class="card">
+                    <div class="card-icon">01</div>
+                    <h3 class="card-title">
+                        Larger Datasets
+                    </h3>
+                    <p class="card-text">
+                        Evaluate the approach on larger and more
+                        diverse speech datasets.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="card-icon">02</div>
+                    <h3 class="card-title">
+                        Feature Expansion
+                    </h3>
+                    <p class="card-text">
+                        Investigate additional linguistic and
+                        speech-derived characteristics.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="card-icon">03</div>
+                    <h3 class="card-title">
+                        External Validation
+                    </h3>
+                    <p class="card-text">
+                        Evaluate generalization on independent
+                        participant populations.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+
+        <section class="section">
+
+            <div class="card text-center">
+
+                <div class="section-eyebrow">
+                    Try ParkiNLP
+                </div>
+
+                <h2 class="section-title">
+                    Test the ParkiNLP pipeline.
+                </h2>
+
+                <p class="section-description">
+                    Record a natural speech sample and explore the
+                    complete speech-to-NLP analysis workflow.
+                </p>
+
+                <div
+                    class="hero-actions"
+                    style="justify-content: center;"
+                >
+
+                    <a
+                        href="{{ url_for('analyze') }}"
+                        class="btn btn-primary"
+                    >
+                        Analyze Speech →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+</section>
+
+{% endblock %}

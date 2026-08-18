@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block title %}
+ParkiNLP — About
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                About ParkiNLP
+            </div>
+
+             <h1 class="section-title">
+                A speech analysis platform for
+                <span>language-based Parkinson's classification.</span>
+            </h1>
+
+            <p class="section-description">
+                ParkiNLP analyzes spoken language by combining Whisper
+                transcription, natural language processing, speech-quality
+                assessment, and machine learning to produce an interpretable
+                classification result.
+            </p>
+
+        </div>
+
+
+        <div
+            class="grid-2"
+            style="margin-top: 45px;"
+        >
+
+            <article class="card">
+
+                <div class="card-icon">
+                    01
+                </div>
+
+                <h2 class="card-title">
+                    What is ParkiNLP?
+                </h2>
+
+                <p class="card-text">
+                    ParkiNLP is a browser-based speech analysis
+                    platform that combines automatic speech
+                    transcription, natural language processing,
+                    reliability analysis and machine learning.
+                </p>
+
+            </article>
+
+
+            <article class="card">
+
+                <div class="card-icon">
+                    02
+                </div>
+
+                <h2 class="card-title">
+                    Why NLP?
+                </h2>
+
+                <p class="card-text">
+                    Instead of treating speech only as an acoustic
+                    signal, ParkiNLP explores the linguistic structure
+                    contained in the resulting transcript.
+                </p>
+
+            </article>
+
+        </div>
+
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    Technology
+                </div>
+
+                <h2 class="section-title">
+                    How the platform is built.
+                </h2>
+
+            </div>
+
+
+            <div class="grid-3">
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        ASR
+                    </div>
+
+                    <h3 class="card-title">
+                        Whisper
+                    </h3>
+
+                    <p class="card-text">
+                        Speech recordings are converted into
+                        transcripts using the Whisper speech
+                        recognition pipeline.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        NLP
+                    </div>
+
+                    <h3 class="card-title">
+                        Linguistic Features
+                    </h3>
+
+                    <p class="card-text">
+                        The transcript is transformed into a compact
+                        set of selected NLP characteristics.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <div class="card-icon">
+                        ML
+                    </div>
+
+                    <h3 class="card-title">
+                        Classification
+                    </h3>
+
+                    <p class="card-text">
+                        The deployment model uses the selected
+                        linguistic features to produce an exploratory
+                        classification output.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    Responsible Use
+                </div>
+
+                <h2 class="section-title">
+                    Designed for responsible use,
+                    not diagnosis.
+                </h2>
+
+            </div>
+
+
+            <div class="card">
+
+                <p class="card-text">
+
+                    ParkiNLP is an experimental speech-analysis
+                    application. A model prediction is not a clinical
+                    diagnosis and should not be used to make medical
+                    decisions.
+
+                    The purpose of the platform is to demonstrate and
+                    investigate a reproducible speech-to-NLP-to-model
+                    workflow and to provide a foundation for future
+                    research and validation.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-eyebrow">
+                    Future Improvements
+                </div>
+
+                 <h2 class="section-title">
+                    Built to grow with new features.
+                </h2>
+
+                <p class="section-description">
+                    The current implementation provides a foundation
+                    for future experiments involving larger datasets,
+                    additional linguistic features, external
+                    validation and more robust model evaluation.
+                </p>
+
+            </div>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="{{ url_for('research') }}"
+                    class="btn btn-secondary"
+                >
+                    How It Works
+                </a>
+
+                <a
+                    href="{{ url_for('analyze') }}"
+                    class="btn btn-primary"
+                >
+                    Analyze Speech →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="card text-center">
+
+                <div class="section-eyebrow">
+                    ParkiNLP
+                </div>
+
+                <h2 class="section-title">
+                    Speech. Language. Technology.
+                </h2>
+
+                <p class="section-description">
+                    An interpretable experimental workflow for
+                    investigating linguistic patterns in speech.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+{% endblock %}

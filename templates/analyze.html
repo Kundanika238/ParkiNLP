@@ -1,0 +1,1633 @@
+{% extends "base.html" %}
+
+{% block title %}
+ParkiNLP — Speech Analysis
+{% endblock %}
+
+
+{% block head %}
+
+<style>
+
+/* ============================================================
+   ANALYZE PAGE
+   ============================================================ */
+
+.analysis-page {
+    padding: 70px 0 90px;
+}
+
+
+/* ---------- Header ---------- */
+
+.analysis-header {
+    max-width: 760px;
+    margin-bottom: 45px;
+}
+
+.analysis-header .section-eyebrow {
+    margin-bottom: 10px;
+}
+
+.analysis-header h1 {
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -1.8px;
+}
+
+.analysis-header p {
+    max-width: 680px;
+    margin-top: 17px;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* ---------- Main Analysis Layout ---------- */
+
+.analysis-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    gap: 22px;
+    align-items: start;
+}
+
+
+/* ---------- Recorder Card ---------- */
+
+.recorder-card {
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 45px;
+}
+
+
+/* ---------- Microphone ---------- */
+
+.microphone-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 30px;
+}
+
+
+.microphone-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.18),
+            rgba(6, 182, 212, 0.06) 48%,
+            transparent 70%
+        );
+}
+
+
+.microphone-button {
+    position: relative;
+    z-index: 2;
+
+    width: 92px;
+    height: 92px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(59, 130, 246, 0.18),
+            rgba(6, 182, 212, 0.12)
+        );
+
+    color: #93C5FD;
+
+    font-size: 32px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.microphone-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(59, 130, 246, 0.7);
+}
+
+
+.microphone-button.recording {
+    background:
+        rgba(239, 68, 68, 0.12);
+
+    border-color:
+        rgba(239, 68, 68, 0.55);
+
+    color:
+        #FCA5A5;
+}
+
+
+/* ---------- Recorder Text ---------- */
+
+.recorder-title {
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+
+.recorder-description {
+    max-width: 480px;
+    margin-top: 9px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ---------- Timer ---------- */
+
+.recording-timer {
+    margin-top: 25px;
+
+    color: var(--text-primary);
+
+    font-size: 28px;
+    font-weight: 700;
+
+    font-variant-numeric: tabular-nums;
+
+    letter-spacing: -1px;
+}
+
+
+.recording-status {
+    margin-top: 7px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+}
+
+
+/* ---------- Recorder Actions ---------- */
+
+.recorder-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+}
+
+
+/* ---------- Recording Progress ---------- */
+
+.recording-progress {
+    width: min(100%, 430px);
+    margin-top: 25px;
+}
+
+
+.recording-progress-track {
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(148, 163, 184, 0.1);
+}
+
+
+.recording-progress-bar {
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--cyan)
+        );
+
+    transition: width 0.2s linear;
+}
+
+
+/* ---------- Side Information ---------- */
+
+.analysis-info {
+    display: grid;
+    gap: 20px;
+}
+
+
+.info-card {
+    padding: 24px;
+}
+
+
+.info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.info-number {
+    width: 30px;
+    height: 30px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 8px;
+
+    background:
+        rgba(59, 130, 246, 0.1);
+
+    color:
+        #60A5FA;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.info-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.info-card p {
+    margin-top: 13px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+
+/* ---------- Processing Steps ---------- */
+
+.processing-list {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+
+.processing-step {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 12px;
+}
+
+
+.processing-icon {
+    width: 25px;
+    height: 25px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(148, 163, 184, 0.08);
+
+    border:
+        1px solid var(--border);
+
+    font-size: 10px;
+}
+
+
+.processing-step.active {
+    color:
+        var(--text-primary);
+}
+
+
+.processing-step.active .processing-icon {
+    background:
+        rgba(59, 130, 246, 0.12);
+
+    border-color:
+        rgba(59, 130, 246, 0.3);
+
+    color:
+        #60A5FA;
+}
+
+
+/* ---------- Research Notice ---------- */
+
+.research-notice {
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border:
+        1px solid rgba(245, 158, 11, 0.16);
+
+    border-radius:
+        var(--radius-sm);
+
+    background:
+        rgba(245, 158, 11, 0.05);
+
+    color:
+        #FCD34D;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* ---------- Hidden Audio ---------- */
+
+#audioPreview {
+
+    display: none;
+
+    width: min(100%, 430px);
+
+    margin-top: 22px;
+
+    border-radius: 10px;
+
+    opacity: 0.9;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .analysis-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .analysis-page {
+        padding: 50px 0 70px;
+    }
+
+    .recorder-card {
+        min-height: 480px;
+        padding: 30px 20px;
+    }
+
+    .analysis-info {
+        grid-template-columns: 1fr;
+    }
+
+    .microphone-container {
+        width: 130px;
+        height: 130px;
+    }
+
+    .microphone-button {
+        width: 82px;
+        height: 82px;
+        font-size: 28px;
+    }
+
+}
+
+/* ============================================================
+   PARKINLP RESULTS DASHBOARD
+   ============================================================ */
+
+.results-section {
+    padding: 80px 0 100px;
+}
+
+.results-header {
+    max-width: 760px;
+    margin-bottom: 35px;
+}
+
+.results-header h2 {
+    margin-top: 8px;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -1.4px;
+}
+
+.results-header h2 span {
+    color: var(--blue);
+}
+
+.results-header p {
+    max-width: 700px;
+    margin-top: 14px;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* ---------- Result Grid ---------- */
+
+.results-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+
+.result-card {
+    min-height: 155px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card-bg);
+}
+
+
+.result-card-label {
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+
+.prediction-value {
+    margin-top: 18px;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.prediction-subtitle {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+
+.probability-value {
+    margin-top: 18px;
+    font-size: 30px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+}
+
+
+.probability-label {
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+
+.reliability-value {
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: 750;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+
+.reliability-message {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.75;
+    max-width: 520px;
+}
+
+
+/* ---------- Two Column Results ---------- */
+
+.results-two-column {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.25fr)
+        minmax(300px, 0.75fr);
+    gap: 18px;
+    margin-top: 18px;
+}
+
+
+.results-panel {
+    padding: 26px;
+}
+
+
+.results-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+
+.results-panel-header h3 {
+    margin-top: 6px;
+    font-size: 17px;
+}
+
+
+.panel-icon {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60A5FA;
+}
+
+
+/* ---------- Transcript ---------- */
+
+.transcript-box {
+    margin-top: 20px;
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.35);
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.9;
+    word-break: break-word;
+}
+
+
+/* ---------- NLP Features ---------- */
+
+.feature-list {
+    margin-top: 18px;
+}
+
+
+.feature-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+}
+
+
+.feature-row:last-child {
+    border-bottom: none;
+}
+
+
+.feature-row span {
+    color: var(--text-muted);
+}
+
+
+.feature-row strong {
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+    letter-spacing: 0.2px;
+}
+
+
+/* ---------- Reliability Details ---------- */
+
+.reliability-details {
+    margin-top: 18px;
+    padding: 26px;
+}
+
+
+.reliability-badge {
+    padding: 7px 12px;
+    border-radius: 999px;
+
+    background: rgba(59, 130, 246, 0.10);
+    border: 1px solid rgba(59, 130, 246, 0.20);
+
+    color: #93C5FD;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+}
+
+.reliability-badge.reliable {
+    background: rgba(34, 197, 94, 0.10);
+    border-color: rgba(34, 197, 94, 0.22);
+    color: #86EFAC;
+}
+
+.reliability-badge.caution {
+    background: rgba(245, 158, 11, 0.10);
+    border-color: rgba(245, 158, 11, 0.22);
+    color: #FCD34D;
+}
+
+.reliability-badge.low-reliability {
+    background: rgba(239, 68, 68, 0.10);
+    border-color: rgba(239, 68, 68, 0.22);
+    color: #FCA5A5;
+}
+
+
+.reliability-summary {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+}
+
+
+.reliability-stat {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+
+.reliability-stat span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+
+.reliability-stat strong {
+    display: block;
+    margin-top: 7px;
+    font-size: 20px;
+}
+
+
+.reliability-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+
+.reliability-feature-tag {
+    padding: 8px 11px;
+    border-radius: 7px;
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.16);
+    color: #FCA5A5;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+
+/* ---------- Pipeline ---------- */
+
+.pipeline-result-card {
+    margin-top: 18px;
+    padding: 26px;
+}
+
+
+.pipeline-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+
+.pipeline-result-step {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+
+.pipeline-result-step span {
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+}
+
+
+.pipeline-result-step.complete {
+    color: var(--text-primary);
+}
+
+
+.pipeline-result-step.complete span {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.25);
+    color: #86EFAC;
+}
+
+
+.pipeline-line {
+    flex: 1;
+    min-width: 20px;
+    height: 1px;
+    background: var(--border);
+}
+
+
+/* ---------- Disclaimer ---------- */
+
+.results-disclaimer {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid rgba(245, 158, 11, 0.16);
+    border-radius: var(--radius-sm);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+
+.results-disclaimer strong {
+    color: #FCD34D;
+    font-size: 11px;
+}
+
+
+.results-disclaimer p {
+    margin-top: 7px;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* ---------- Actions ---------- */
+
+.results-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    padding-bottom: 10px;
+}
+
+
+/* ---------- Hidden ---------- */
+
+.results-section.hidden {
+    display: none;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 950px) {
+
+    .results-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .results-two-column {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .results-section {
+        padding: 60px 0 80px;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reliability-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .pipeline-result {
+        justify-content: flex-start;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="analysis-page">
+
+    <div class="container">
+
+
+        <!-- ==================================================
+             PAGE HEADER
+             ================================================== -->
+
+        <div class="analysis-header">
+
+            <div class="section-eyebrow">
+                Speech Analysis
+            </div>
+
+            <h1>
+                Explore your speech
+                through a linguistic lens.
+            </h1>
+
+            <p>
+                Record a short speech sample and explore how
+                ParkiNLP transforms speech into an interpretable
+                linguistic profile using Whisper, natural language
+                processing, and machine learning.
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             ANALYSIS LAYOUT
+             ================================================== -->
+
+        <div class="analysis-layout">
+
+
+            <!-- ==============================================
+                 RECORDER
+                 ============================================== -->
+
+            <div class="card recorder-card">
+
+
+                <div class="microphone-container">
+
+                    <div class="microphone-glow"></div>
+
+                    <button
+                        id="recordButton"
+                        class="microphone-button"
+                        type="button"
+                        aria-label="Start recording"
+                    >
+
+                        🎙
+
+                    </button>
+
+                </div>
+
+
+                <h2
+                    id="recorderTitle"
+                    class="recorder-title"
+                >
+                    Ready to analyze?
+                </h2>
+
+
+                <p
+                    id="recorderDescription"
+                    class="recorder-description"
+                >
+                    Speak naturally for a short sample.
+                    Your recording will be processed through
+                    the complete ParkiNLP pipeline
+                </p>
+
+
+                <!-- Timer -->
+
+                <div
+                    id="recordingTimer"
+                    class="recording-timer"
+                >
+                    00:00
+                </div>
+
+
+                <div
+                    id="recordingStatus"
+                    class="recording-status"
+                >
+                    Microphone ready
+                </div>
+
+
+                <!-- Progress -->
+
+                <div class="recording-progress">
+
+                    <div class="recording-progress-track">
+
+                        <div
+                            id="recordingProgressBar"
+                            class="recording-progress-bar"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="recorder-actions">
+
+                    <button
+                        id="startRecordingButton"
+                        class="btn btn-primary"
+                        type="button"
+                    >
+
+                        Start Recording
+
+                    </button>
+
+
+                    <button
+                        id="stopRecordingButton"
+                        class="btn btn-secondary hidden"
+                        type="button"
+                    >
+
+                        Stop Recording
+
+                    </button>
+
+
+                    <button
+                        id="analyzeRecordingButton"
+                        class="btn btn-primary hidden"
+                        type="button"
+                    >
+
+                        Analyze Speech
+                        <span aria-hidden="true">→</span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Audio preview -->
+
+                <audio
+                    id="audioPreview"
+                    controls
+                ></audio>
+
+
+            </div>
+
+
+            <!-- ==============================================
+                 INFORMATION
+                 ============================================== -->
+
+            <aside class="analysis-info">
+
+
+                <!-- How it works -->
+
+                <div class="card info-card">
+
+                    <div class="info-card-header">
+
+                        <div class="info-number">
+                            01
+                        </div>
+
+                        <h3>
+                            How it works
+                        </h3>
+
+                    </div>
+
+
+                    <p>
+                        Your speech is first converted into text
+                        using Whisper. The transcript is then
+                        analyzed for measurable linguistic
+                        characteristics.
+                    </p>
+
+                </div>
+
+
+                <!-- Processing -->
+
+                <div class="card info-card">
+
+                    <div class="info-card-header">
+
+                        <div class="info-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Analysis pipeline
+                        </h3>
+
+                    </div>
+
+
+                    <div class="processing-list">
+
+
+                        <div class="processing-step active">
+
+                            <div class="processing-icon">
+                                1
+                            </div>
+
+                            <span>
+                                Speech recording
+                            </span>
+
+                        </div>
+
+
+                        <div class="processing-step">
+
+                            <div class="processing-icon">
+                                2
+                            </div>
+
+                            <span>
+                                Whisper transcription
+                            </span>
+
+                        </div>
+
+
+                        <div class="processing-step">
+
+                            <div class="processing-icon">
+                                3
+                            </div>
+
+                            <span>
+                                NLP feature extraction
+                            </span>
+
+                        </div>
+
+
+                        <div class="processing-step">
+
+                            <div class="processing-icon">
+                                4
+                            </div>
+
+                            <span>
+                                Machine-learning analysis
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- Research notice -->
+
+                <div class="research-notice">
+
+                    <strong>
+                        Working prototype
+                    </strong>
+
+                    <br>
+
+                    This system is intended for educational
+                    and experimental use. Results
+                    are not a medical diagnosis and should not
+                    replace professional medical evaluation.
+
+                </div>
+
+
+            </aside>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================================================
+     PARKINLP RESULTS DASHBOARD
+     ============================================================ -->
+
+<section
+    id="resultsSection"
+    class="results-section hidden"
+>
+
+    <div class="container">
+
+        <!-- Results Header -->
+
+        <div class="results-header">
+
+            <div class="section-eyebrow">
+                Speech Analysis Results
+            </div>
+
+            <h2>
+                Your speech analysis
+                <span>at a glance.</span>
+            </h2>
+
+            <p>
+                Your recording has been processed through Whisper
+                transcription, NLP feature extraction, speech-quality
+                assessment, and machine-learning classification.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             TOP RESULT CARDS
+             ===================================================== -->
+
+        <div class="results-grid">
+
+            <!-- Prediction -->
+
+            <div class="result-card prediction-card">
+
+                <div class="result-card-label">
+                    CLASSIFICATION RESULT
+                </div>
+
+                <div
+                    id="predictionValue"
+                    class="prediction-value"
+                >
+                    —
+                </div>
+
+                <div
+                    id="predictionSubtitle"
+                    class="prediction-subtitle"
+                >
+                    Model output
+                </div>
+
+            </div>
+
+
+            <!-- HC Probability -->
+
+            <div class="result-card">
+
+                <div class="result-card-label">
+                    HC PROBABILITY
+                </div>
+
+                <div
+                    id="hcProbability"
+                    class="probability-value"
+                >
+                    —
+                </div>
+
+                <div class="probability-label">
+                    Class probability
+                </div>
+
+            </div>
+
+
+            <!-- PD Probability -->
+
+            <div class="result-card">
+
+                <div class="result-card-label">
+                    PD PROBABILITY
+                </div>
+
+                <div
+                    id="pdProbability"
+                    class="probability-value"
+                >
+                    —
+                </div>
+
+                <div class="probability-label">
+                    Class probability
+                </div>
+
+            </div>
+
+
+            <!-- Reliability -->
+
+            <div class="result-card reliability-card">
+
+                <div class="result-card-label">
+                    RELIABILITY
+                </div>
+
+                <div
+                    id="reliabilityStatus"
+                    class="reliability-value"
+                >
+                    —
+                </div>
+
+                <div
+                    id="reliabilityMessage"
+                    class="reliability-message"
+                >
+                    Waiting for speech analysis
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TRANSCRIPT + NLP FEATURES
+             ===================================================== -->
+
+        <div class="results-two-column">
+
+            <!-- Transcript -->
+
+            <div class="card results-panel">
+
+                <div class="results-panel-header">
+
+                    <div>
+
+                        <div class="result-card-label">
+                            WHISPER TRANSCRIPT
+                        </div>
+
+                        <h3>
+                            Transcribed speech
+                        </h3>
+
+                    </div>
+
+                    <div class="panel-icon">
+                        ✦
+                    </div>
+
+                </div>
+
+                <div
+                    id="transcriptText"
+                    class="transcript-box"
+                >
+                    No transcript available yet.
+                </div>
+
+            </div>
+
+
+            <!-- NLP Features -->
+
+            <div class="card results-panel">
+
+                <div class="results-panel-header">
+
+                    <div>
+
+                        <div class="result-card-label">
+                            NLP FEATURES
+                        </div>
+
+                        <h3>
+                            Linguistic profile
+                        </h3>
+
+                    </div>
+
+                    <div class="panel-icon">
+                        ◈
+                    </div>
+
+                </div>
+
+
+                <div class="feature-list">
+
+                    <div class="feature-row">
+
+                        <span>
+                            Filler count
+                        </span>
+
+                        <strong id="featureFillerCount">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span>
+                            Filler rate
+                        </span>
+
+                        <strong id="featureFillerRate">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span>
+                            Sentence count
+                        </span>
+
+                        <strong id="featureSentenceCount">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span>
+                            Short sentence ratio
+                        </span>
+
+                        <strong id="featureShortSentenceRatio">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="feature-row">
+
+                        <span>
+                            Type-token ratio
+                        </span>
+
+                        <strong id="featureTypeTokenRatio">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             RELIABILITY DETAILS
+             ===================================================== -->
+
+        <div class="card reliability-details">
+
+            <div class="results-panel-header">
+
+                <div>
+
+                    <div class="result-card-label">
+                        SPEECH QUALITY
+                    </div>
+
+                    <h3>
+                        Input quality assessment
+                    </h3>
+
+                </div>
+
+                <div
+                    id="reliabilityBadge"
+                    class="reliability-badge"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="reliability-summary">
+
+                <div class="reliability-stat">
+
+                    <span>
+                        Words
+                    </span>
+
+                    <strong id="wordCount">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="reliability-stat">
+
+                    <span>
+                        Sentences
+                    </span>
+
+                    <strong id="sentenceCount">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="reliability-stat">
+
+                    <span>
+                        Unusual features
+                    </span>
+
+                    <strong id="unusualFeatureCount">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="reliabilityFeatures"
+                class="reliability-features"
+            >
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PIPELINE STATUS
+             ===================================================== -->
+
+        <div class="card pipeline-result-card">
+
+            <div class="result-card-label">
+                PARKINLP PIPELINE
+            </div>
+
+            <div class="pipeline-result">
+
+                <div class="pipeline-result-step complete">
+                    <span>✓</span>
+                    Recording
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-result-step complete">
+                    <span>✓</span>
+                    Whisper
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-result-step complete">
+                    <span>✓</span>
+                    NLP
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-result-step complete">
+                    <span>✓</span>
+                    Reliability
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div
+                    id="pipelineModelStep"
+                    class="pipeline-result-step complete"
+                >
+                    <span id="pipelineModelIcon">✓</span>
+                    ML Model
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             DISCLAIMER
+             ===================================================== -->
+
+        <div class="results-disclaimer">
+
+            <strong>
+                Important notice
+            </strong>
+
+            <p>
+                ParkiNLP provides machine-learning model output
+                based on speech and linguistic features. It is not
+                a medical diagnosis and should not replace evaluation
+                by a qualified healthcare professional.
+            </p>
+
+        </div>
+
+
+        <!-- Analyze Again -->
+
+        <div class="results-actions">
+
+            <button
+                id="analyzeAgainButton"
+                class="btn btn-secondary"
+                type="button"
+            >
+                Analyze Another Recording
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
