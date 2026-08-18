@@ -27,6 +27,9 @@ ParkiNLP is a web-based speech analysis application that converts spoken audio i
 ### Speech Analysis
 ![ParkiNLP Analysis](analyze.png)
 
+### Results Dashboard
+![ParkiNLP Results](results.png)
+
 ### How It Works
 ![ParkiNLP How It Works](how-it-works-1.png)
 
