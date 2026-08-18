@@ -27,6 +27,13 @@ ParkiNLP is a web-based speech analysis application that converts spoken audio i
 ### Speech Analysis
 ![ParkiNLP Analysis](analyze.png)
 
+### How It Works
+![ParkiNLP How It Works](how-it-works-1.png)
+
+![ParkiNLP Reliability](how-it-works-2.png)
+
+![ParkiNLP Architecture](how-it-works-3.png)
+
 ## What Makes ParkiNLP Different
 
 ParkiNLP is designed as a complete speech-to-analysis workflow rather than a standalone machine-learning model.
